@@ -1,7 +1,8 @@
 <!--
   templateType: page
-  isAvailableForNewContent: true
+  isAvailableForNewContent: false
   label: HCFM Brand Portal
+  screenshotPath: ../images/screenshot.png
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HCFM Brand Identity</title>
 <meta name="description" content="The visual identity guide for Holy Cross Family Ministries. One ministry, one mission, one world for families.">
-<link rel="stylesheet" href="styles.css">
+{{ require_css(get_asset_url("../css/hcfm-styles.css")) }}
 <link rel="icon" type="image/png" href="assets/logos/hcfm-symbol-blue.png">
   {{ standard_header_includes }}
 </head>
@@ -1341,39 +1342,17 @@
       <input type="search" class="faq-search" id="faqSearch" placeholder="Search the FAQ…">
 
       <div class="faq-list" id="faqList">
-        <details><summary>Are all ministry centers expected to fully transition to the 2026 system?</summary><p>Yes. All ministry centers are expected to transition. We are not enforcing a hard deadline. New materials produced from now forward should use the 2026 system. Existing materials in active circulation can phase out over the next six to twelve months as they are reprinted or refreshed.</p></details>
-
-        <details><summary>How do ministry centers with the older guidelines handle the move to the new brand?</summary><p>The Philippines and East Africa regional guides still apply for the parts that haven't been updated — margins, photography composition, layout fundamentals. The new brand replaces the older content for typography, colors, and design elements. Where the two conflict, the new brand wins.</p></details>
-
-        <details><summary>What is the ideal lead time for the transition?</summary><p>For new campaigns, immediate. For existing collateral, switch when you reprint. For digital-first applications such as social media and web, within 30 days of any meaningful update.</p></details>
-
-        <details><summary>What about older printed materials following the old guidelines?</summary><p>Use them through their natural life. Do not reprint at scale. When you reorder, switch to the 2026 system. Avoid mixing old and new system materials in the same campaign.</p></details>
-
-        <details><summary>Who reviews ministry-center work for alignment?</summary><p>Victoria Hassan and Emmanuel Epau in Easton. There is no charge or formal request process. Email before you ship anything you are unsure about. Turnaround is typically two business days.</p></details>
-
-        <details><summary>What support is available from the HCFM team?</summary><p>Victoria and Emmanuel will: review your design before you publish, help you apply the rules in your specific situation, create custom materials when you have a partner organization, commission logo files when the existing pack doesn't cover what you need, and run training calls for ministry-center design teams.</p></details>
-
-        <details><summary>Can I use Yellow Gold for body text?</summary><p>No. Yellow Gold on white has only 1.9:1 contrast. Accessibility requires 4.5:1 minimum. Use Yellow Gold for headlines, accents, CTAs, and decoration only. On dark backgrounds, Yellow Gold is excellent.</p></details>
-
-        <details><summary>Why does the brand book say "Light Blue" and the page say "Marian Blue"?</summary><p>Same color, two names. The 2026 brand book uses "Light Blue." The 2025 Visual Identity deck and most updated documents use "Marian Blue." Going forward, we are standardizing on Marian Blue because it carries more brand meaning.</p></details>
-
-        <details><summary>When should I use Muted Gold instead of Yellow Gold?</summary><p>Simple rule: if it is on a screen, use Yellow Gold. If it is for donors, on a certificate, or in formal print, use Muted Gold. Muted Gold is the default for traditional, reverent contexts. Yellow Gold is the default for digital, social, and energetic contexts.</p></details>
-
-        <details><summary>What if I need a logo file in a format that's not in the pack?</summary><p>Email Victoria or Emmanuel. We can commission additional formats — SVG, EPS, PDF, vector outlines for specific cuts — through the Easton creative team.</p></details>
-
-        <details><summary>Can I create a new sub-brand or accent color for my ministry's local culture?</summary><p><strong>No.</strong> The HCFM system is the same across every ministry — that's what gives us recognition across 18 countries. A family in Manila and a family in Nairobi should see the same brand and instantly know it's HCFM. Cultural adaptation happens through imagery, language, and the specific stories you tell — not through changing the colors or fonts.</p></details>
-
-        <details><summary>What's the rule on overlays for photos?</summary><p>Black transparent overlays at 40 to 70 percent opacity. The exact opacity depends on the image and how much text you have. 40% for light images and minimal text, 50–60% for most situations, 70%+ for busy images or large text blocks.</p></details>
-
-        <details><summary>How do I handle a logo with a partner organization?</summary><p>Email Victoria or Emmanuel <strong>before</strong> you produce anything that places another organization's logo next to ours. We have specific rules about how the two logos sit together, how much space goes between them, and what needs approval. Don't design first and ask later — we'll have to redo it.</p></details>
-
-        <details><summary>Can I create a custom font treatment for a special campaign?</summary><p><strong>No.</strong> The HCFM type system is Whitney, Calluna, and Playlist Script. Period. A custom treatment for one campaign breaks the system for every campaign that follows. If you have a real visual need (a feast-day moment, a launch identity), email Victoria or Emmanuel to discuss how to solve it within the existing typography — never outside it.</p></details>
-
-        <details><summary>How do I report someone using the HCFM brand wrongly?</summary><p>Email Victoria or Emmanuel with a screenshot or link. We follow up directly with whoever is using the brand. If it is someone outside HCFM (a vendor, a third-party site, an unauthorized printer), we handle the legal follow-up so you don't have to.</p></details>
-
-        <details><summary>Are there translated versions of the brand guidelines?</summary><p>French, Spanish, Portuguese, and Swahili translations are in progress. Until they are published, ministry centers should use the English version and ask Easton for clarification on any term that does not translate cleanly.</p></details>
-
-        <details><summary>Where do I get a password for the Downloads tab?</summary><p>Email <a href="mailto:vhassan@hcfm.org">vhassan@hcfm.org</a> or <a href="mailto:eepau@hcfm.org">eepau@hcfm.org</a> with your name and ministry center. We respond within two business days.</p></details>
+        {% set faq_rows = hubdb_table_rows(282697015, "&orderBy=display_order") %}
+        {% for row in faq_rows %}
+          <details{% if row.is_pinned %} class="faq-item-pinned"{% endif %}>
+            <summary>
+              {% if row.is_pinned %}<span class="faq-pin">Pinned</span>{% endif %}
+              {% if row.category %}<span class="faq-cat">{{ row.category }}</span>{% endif %}
+              {{ row.question }}
+            </summary>
+            <div class="faq-a">{{ row.answer }}</div>
+          </details>
+        {% endfor %}
       </div>
 
       <p class="faq-empty" id="faqEmpty" hidden>No questions match your search. <a href="#help">Email us</a> and we will add it.</p>
@@ -1479,7 +1458,7 @@
   <img id="lightboxImg" src="data:," alt="">
 </div>
 
-<script src="scripts.js"></script>
+{{ require_js(get_asset_url("../js/hcfm-scripts.js")) }}
 <script>
 // Override base tag for in-page hash links so navigation stays on the current host
 document.addEventListener('click', function(e) {
@@ -1496,6 +1475,23 @@ document.addEventListener('click', function(e) {
   }
 }, true);
 </script>
+
+<!-- HCFM Chatbot KB — sourced from HubDB table hcfm_chatbot_kb (282697845) -->
+<div id="hcfm-bot-kb-host" hidden>
+{% set kb_rows = hubdb_table_rows(282697845, "&orderBy=priority") %}
+{% for row in kb_rows %}
+<template data-keywords="{{ row.keywords|escape }}">{{ row.answer|safe }}</template>
+{% endfor %}
+</div>
+
+<!-- HCFM Ministries — sourced from HubDB table hcfm_ministries (282663491) -->
+<div id="hcfm-ministries-host" hidden>
+{% set min_rows = hubdb_table_rows(282663491, "&orderBy=display_order") %}
+{% for row in min_rows %}
+<template data-code="{{ row.code|escape }}" data-name="{{ row.name|escape }}" data-region="{{ row.region|escape }}" data-foundation="{% if row.is_foundation %}1{% else %}0{% endif %}"></template>
+{% endfor %}
+</div>
+
   {{ standard_footer_includes }}
 </body>
 </html>

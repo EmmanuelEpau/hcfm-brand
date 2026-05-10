@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="https://275132.fs1.hubspotusercontent-na1.net/hubfs/275132/_hcfm-brand/">
+<base href="https://emmanuelepau.github.io/hcfm-brand/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HCFM Brand Identity</title>
@@ -1476,26 +1476,10 @@
 <!-- Image lightbox -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
-  <img id="lightboxImg" src="data:," alt="">
+  <img id="lightboxImg" src="" alt="">
 </div>
 
 <script src="scripts.js"></script>
-<script>
-// Override base tag for in-page hash links so navigation stays on the current host
-document.addEventListener('click', function(e) {
-  var a = e.target && e.target.closest ? e.target.closest('a') : null;
-  if (a) {
-    var href = a.getAttribute('href');
-    if (href && href.charAt(0) === '#') {
-      e.preventDefault();
-      e.stopPropagation();
-      var bareHash = href.slice(1);
-      if (location.hash === '#' + bareHash) { location.hash = ''; }
-      location.hash = bareHash;
-    }
-  }
-}, true);
-</script>
   {{ standard_footer_includes }}
 </body>
 </html>
